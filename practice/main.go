@@ -4,7 +4,9 @@
 package main
 
 import (
+	"fmt"
 	"strconv"
+	"strings"
 )
 
 // Change these boolean values to control whether you see
@@ -17,14 +19,16 @@ func calculate(value1 string, value2 string) float64 {
 	// Your code goes here.
 
 	// Convert the first string to a float64
-	f1, err1 := strconv.ParseFloat(value1, 64)
+	f1, err1 := strconv.ParseFloat(strings.TrimSpace(value1), 64)
 	if err1 != nil {
-		f1 = 0
+		fmt.Println(err1)
+		panic("Value 1 must be a number")
 	}
 	// Convert the second string to a float64
-	f2, err2 := strconv.ParseFloat(value2, 64)
+	f2, err2 := strconv.ParseFloat(strings.TrimSpace(value2), 64)
 	if err2 != nil {
-		f2 = 0
+		fmt.Println(err2)
+		panic("Value 2 must be a number")
 	}
 	// Calculate and return the result
 
