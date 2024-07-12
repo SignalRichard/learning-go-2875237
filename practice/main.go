@@ -1,41 +1,26 @@
+// Write your answer here, and then test your code.
+
 package main
 
-import (
-	"fmt"
-)
+// Change these boolean values to control whether you see
+// the expected answer and/or hints.
+const showExpectedResult = false
+const showHints = false
 
-func main() {
-	colors := []string{"Red", "Green", "Blue"}
-	fmt.Println(colors)
+type cartItem struct {
+	name     string
+	price    float64
+	quantity int
+}
 
-	for i := 0; i < len(colors); i++ {
-		fmt.Println(colors[i])
+// calculateTotal() returns the total value of the shopping cart.
+func calculateTotal(cart []cartItem) float64 {
+
+	total := 0.0
+
+	for _, item := range cart {
+		total += item.price * float64(item.quantity)
 	}
 
-	for i := range colors {
-		fmt.Println(colors[i])
-	}
-
-	for _, color := range colors {
-		fmt.Println(color)
-	}
-
-	value := 1
-	for value < 10 {
-		fmt.Println("Value:", value)
-		value++
-	}
-
-	sum := 1
-	for sum < 1000 {
-		sum += sum
-		fmt.Println("Sum:", sum)
-		if sum > 200 {
-			//goto theEnd
-			break
-		}
-	}
-
-	//theEnd:
-	fmt.Println("End of Program")
+	return total
 }
