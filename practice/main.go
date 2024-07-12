@@ -15,17 +15,19 @@ const showExpectedResult = false
 const showHints = false
 
 type cartItem struct {
-	Name     string
-	Price    float64
-	Quantity int
+	Name     string  `json:"name"`
+	Price    float64 `json:"price"`
+	Quantity int     `json:"quantity"`
 }
 
 // getCartFromJson() returns a slice containing cartItem objects.
 func getCartFromJson(jsonString string) []cartItem {
 	var cart []cartItem
 	// Your code goes here.
-
-	cart = convertFromJson[cartItem](jsonString)
+	err := json.Unmarshal([]byte(jsonString), &cart)
+	if err != nil {
+		panic(err)
+	}
 
 	return cart
 }
