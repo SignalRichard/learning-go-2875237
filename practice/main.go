@@ -1,62 +1,53 @@
+// Write your answer here, and then test your code.
+// Your job is to implement the getCartFromJson() method.
+
 package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
-	"net/http"
 	"strings"
+	//"golang.org/x/exp/constraints"
 )
 
-const url = "http://services.explorecalifornia.org/json/tours.php"
+// Change these boolean values to control whether you see
+// the expected answer and/or hints.
+const showExpectedResult = false
+const showHints = false
 
-func main() {
-
-	resp, err := http.Get(url)
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Printf("Response type: %T\n", resp)
-
-	defer resp.Body.Close()
-
-	bytes, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		panic(err)
-	}
-
-	content := string(bytes)
-	//fmt.Print(content)
-
-	tours := toursFromJson(content)
-	for _, tour := range tours {
-		fmt.Println(tour.Name)
-	}
+type cartItem struct {
+	Name     string
+	Price    float64
+	Quantity int
 }
 
-func toursFromJson(content string) []Tour {
-	tours := make([]Tour, 0, 20)
+// getCartFromJson() returns a slice containing cartItem objects.
+func getCartFromJson(jsonString string) []cartItem {
+	var cart []cartItem
+	// Your code goes here.
+
+	cart = convertFromJson[cartItem](jsonString)
+
+	return cart
+}
+
+func convertFromJson[T any](content string) []T {
+	items := make([]T, 0, 3)
 
 	decoder := json.NewDecoder(strings.NewReader(content))
 	_, err := decoder.Token()
 	if err != nil {
 		panic(err)
 	}
-	var tour Tour
+	var item T
 
 	for decoder.More() {
-		err := decoder.Decode(&tour)
+		err := decoder.Decode(&item)
 		if err != nil {
 			panic(err)
 		}
 
-		tours = append(tours, tour)
+		items = append(items, item)
 	}
 
-	return tours
-}
-
-type Tour struct {
-	Name, Price string
+	return items
 }
