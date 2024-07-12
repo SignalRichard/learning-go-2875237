@@ -16,41 +16,41 @@ const showHints = false
 // calculate() returns the result of the requested operation.
 func calculate(input1 string, input2 string, operation string) float64 {
 	// Your code goes here.
-	result := 0.0
+	var result float64
 
-	f1 := convertInputToValue(input1)
-	f2 := convertInputToValue(input2)
+	value1 := convertInputToValue(input1)
+	value2 := convertInputToValue(input2)
 
 	switch operation {
 	case "+":
-		result = addValues(f1, f2)
+		result = addValues(value1, value2)
 
 	case "-":
-		result = subtractValues(f1, f2)
+		result = subtractValues(value1, value2)
 
 	case "*":
-		result = multiplyValues(f1, f2)
+		result = multiplyValues(value1, value2)
 
 	case "/":
-		result = divideValues(f1, f2)
+		result = divideValues(value1, value2)
 
 	default:
-		panic("Unknown operator")
+		panic("Invalid operation")
 	}
 
 	return result
 }
 
 func convertInputToValue(input string) float64 {
-	f1, err1 := strconv.ParseFloat(strings.TrimSpace(input), 64)
+	value, err := strconv.ParseFloat(strings.TrimSpace(input), 64)
 
-	if err1 != nil {
-		fmt.Println(err1)
+	if err != nil {
+		message := fmt.Sprintf("%v must be a number", input)
 
-		panic("input must be a number")
+		panic(message)
 	}
 
-	return f1
+	return value
 }
 
 func addValues(value1, value2 float64) float64 {
