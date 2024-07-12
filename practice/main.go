@@ -12,12 +12,10 @@ func convertToMap(items []string) map[string]float64 {
 
 	// Create a map object
 	result := make(map[string]float64)
-
-	price := float64(100 / len(items))
-
-	for k := range items {
-		result[items[k]] = price
+	// Your code goes here
+	elementValue := 100 / float64(len(items))
+	for _, fruit := range items {
+		result[fruit] = elementValue
 	}
-
 	return result
 }
